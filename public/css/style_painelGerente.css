@@ -1,0 +1,64 @@
+#titulo{
+
+color: steelblue;
+font-size: x-large;
+font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+
+body{
+    background-color: steelblue;
+}
+
+#barra{
+
+
+background-color: white;
+
+
+
+}
+#pesquisa{
+
+
+margin-left: 1%;
+
+
+}
+
+#btcad,#btcadf,#btsair{
+
+
+width: 180px;
+margin-bottom: 15px;
+
+
+
+}
+
+h5{
+
+font-family: arial;
+
+}
+
+#tabela_funcionarios,#tabela_produtos{
+
+margin-top: 25px;
+overflow: auto;
+height: 360px;
+border:solid 1px;
+background-color: white
+
+
+
+
+}
+
+#busca_produto,#busca_funcionario{
+
+
+margin-left: 2%;
+
+
+}

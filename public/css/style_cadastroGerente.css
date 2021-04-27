@@ -1,0 +1,68 @@
+body{
+    background-color: steelblue;
+}
+
+#titulo{
+
+color: steelblue;
+font-size: x-large;
+font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+
+#formulario{
+
+margin-left: 12%;
+margin-right: 12%;
+height: 95%;
+background-color: white;
+margin-top: 2%;
+border-radius: 5px;
+
+
+
+}
+input{
+
+margin-bottom: 5px;
+
+
+
+}
+
+#cadastro{
+
+margin-right: 10px;
+margin-left: 10px;
+margin-top: 50px;
+margin-bottom: 15px;
+
+
+
+}
+
+h2{
+
+
+padding-left: 30%;
+padding-top: 7%;
+
+
+}
+
+#logo{
+
+    margin-left: 28%;
+    margin-top: 5%;
+    width:150px;
+    height:130px;
+
+}
+
+#entrar , #limpar{
+
+width: 120px;
+margin-top: 5px;
+
+
+}
