@@ -156,7 +156,7 @@ class CadastroGerente extends CI_Controller {
 		$rgCriptografado = password_hash($rg, PASSWORD_BCRYPT); 
 		$senhaCriptografada = password_hash($senha, PASSWORD_BCRYPT);
 
-//mandar dados do gerente para o model respectivo
+         //mandar dados do gerente para o model respectivo
 		$this->load->Model('GerenteModel');
 		$this->GerenteModel->gravar_dados($nome,$email,$senhaCriptografada,$dataDN,$cpfCriptografado,$rgCriptografado);
 

@@ -24,12 +24,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
       </a>
     </div>
   </nav>
-
   <div id="formulario">
 
-
     <?php if ($mensagens!="") {
-      echo '<div style="position: absolute;Z-index:3 ;margin-left:8%" class="alert alert-warning alert-dismissible fade show" role="alert">
+      echo '<div style="position: absolute;Z-index:3 ;width:100%" class="alert alert-danger alert-dismissible fade show" role="alert">
       <strong></strong>'.$mensagens.'
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
@@ -37,11 +35,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
       </div>';
 
     } ?>
-
     <img id="logo" src="<?php echo base_url();?>public/imagens/logo.png">
     <form id="formulario_login" action="<?php echo site_url('Home/login'); ?>" method="post" >
       <div class="mb-3">
-        <input type="email" name="email" placeholder="Usuário" maxlength="45" class="form-control" id="InputEmail1" aria-describedby="emailHelp">
+        <input type="email" name="email" placeholder="Usuário" maxlength="45" class="form-control" id="InputEmail1">
       </div>
       <div class="mb-3">
         <input type="password" name="senha" placeholder="senha" maxlength="30" class="form-control" id="InputPassword1">
@@ -49,7 +46,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
       <a href="#">Esqueceu senha ?</a>
       <br><br>
       <button id="entrar" type="submit" class="btn btn-primary ">Entrar</button>
-      <button id="cadastrese" type="submit" formaction="<?php echo site_url('CadastroGerente');?>/index" class="btn btn-secondary">Cadastre-se</button>
+      <button id="cadastrese" type="submit" formaction="<?php echo site_url('CadastroGerente');?>" class="btn btn-secondary">Cadastre-se</button>
     </form>
   </div>
 

@@ -7,58 +7,95 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 body{
-    background-color: steelblue;
-}
-
-#barra{
-
-
-background-color: white;
-
-
+   
+    
+      margin-top: 80px;
 
 }
-#pesquisa{
 
 
-margin-left: 1%;
+
+.bmenu{
+
+margin-top: 2px;
+width: 190px;
 
 
 }
 
-#btcad,#btcadf,#btsair{
-
-
-width: 180px;
-margin-bottom: 15px;
-
-
-
-}
-
-h5{
+h7{
 
 font-family: arial;
 
 }
 
-#tabela_funcionarios,#tabela_produtos{
+/*
 
-margin-top: 25px;
-overflow: auto;
-height: 360px;
-border:solid 1px;
-background-color: white
+td,th{
+
+border-style: solid;
+border-color: black;
+border-width: 1px;
+
+}
+
+*/
+#tabela_funcionarios{
 
 
+margin-top: 20px;
 
 
 }
 
-#busca_produto,#busca_funcionario{
+.modalTitulo{
 
 
-margin-left: 2%;
+background-color: #FF8C00;
+color: white;
+height: 150px;
 
+
+}
+
+.modalTituloFuncionario{
+
+background-color: #3CB371;
+color: white;
+
+
+}
+
+.modal_txt{
+
+font-size: 20px;
+margin-left:2%;
+margin-top: 5%;
+font-family: Helvetica;
+
+
+}
+
+.modalf_txt{
+
+font-size: 20px;
+margin-left: 0%;
+margin-top: 4%;
+font-family: Helvetica;
+
+
+}
+
+#bt_senha{
+
+width: 30%;
+margin-left: 70%;
+
+
+}
+#bt_funcionario{
+
+width: 37%;
+margin-left: 0%;
 
 }

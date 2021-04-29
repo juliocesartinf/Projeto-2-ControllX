@@ -132,7 +132,7 @@ class Home extends CI_Controller
 
 			}else{
 
-				$erros = array('mensagens' => 'Conta Não Localizada !');
+				$erros = array('mensagens' => 'Nome de usuário ou senha incorretos !');
 				$this->session->set_userdata("login_erro",$erros);
 				redirect('Home');
 				exit();
