@@ -13,8 +13,13 @@ class PainelGerente extends CI_Controller {
 
 		if ($gerente!='') {
 			
-			$this->load->view('painelGerente');
+		//	$this->load->view('painelGerente');
+			$this->carregar_tabelaFuncionarios();
 			$this->session->set_userdata("erroSenha","");
+			$this->session->set_userdata("erroCadastro","");
+			$this->session->set_userdata("tabela_funcionarios","");
+			$this->session->set_userdata("Funcionario_EDIT","");
+			
 
 
 		}else{ redirect('Home'); exit(); }
@@ -29,6 +34,20 @@ class PainelGerente extends CI_Controller {
 		$this->session->set_userdata("User_logado",'');
 		redirect('Home');
 		exit();
+
+	}
+
+	private function carregar_tabelaFuncionarios(){
+
+		$this->load->Model('FuncionarioModel');
+		$dados = $this->FuncionarioModel->carregar_dados();
+		$this->session->set_userdata("tabela_funcionarios",$dados);
+		$this->load->view('painelGerente');
+
+
+		//foreach  ( $dados -> result_array ()  as  $row ) {}
+
+
 
 	}
 
@@ -109,7 +128,7 @@ class PainelGerente extends CI_Controller {
 		}
 
 		
-	}	
+	}
 
 
 }?>

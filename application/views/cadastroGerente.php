@@ -108,7 +108,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     <script src="<?php echo base_url();?>public/jquery/jquery.mask.js" type="text/javascript"></script>
 
-    <script src="<?php echo base_url();?>public/js/cadastroGerente.js" type="text/javascript"></script>
+    <script src="<?php echo base_url();?>public/js/mascara_jquery.js" type="text/javascript"></script>
 
     <script type="text/javascript">
 
