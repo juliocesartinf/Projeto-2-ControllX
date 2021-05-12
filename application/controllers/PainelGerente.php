@@ -13,15 +13,14 @@ class PainelGerente extends CI_Controller {
 
 		if ($gerente!='') {
 			
-		//	$this->load->view('painelGerente');
 			$this->carregar_tabelaFuncionarios();
 			$this->session->set_userdata("erroSenha","");
 			$this->session->set_userdata("erroCadastro","");
 			$this->session->set_userdata("tabela_funcionarios","");
-			$this->session->set_userdata("Funcionario_EDIT","");
+			$this->session->set_userdata("erroEditar","");
+			$this->session->set_userdata("Modal_funcionario_carregado",false);
+
 			
-
-
 		}else{ redirect('Home'); exit(); }
 
 

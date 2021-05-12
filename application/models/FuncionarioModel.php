@@ -10,7 +10,7 @@ class FuncionarioModel extends CI_Model {
 
 		$dados = [$nome,$email,$senhacriptografada,$telefone,$dtn,$dta];
 
-	
+
 
 		$this->db->query('INSERT INTO Funcionarios(nome,email,senha,telefone,dataDeNascimento,dataDeAdmissao) VALUES (?,?,?,?,?,?)',$dados);
 
@@ -31,29 +31,25 @@ class FuncionarioModel extends CI_Model {
 	}
 
 
-	public function alterar_senha($senha, $id)
-	{
-		
-
-
-		$this->db->query("UPDATE Gerentes
-			SET senha = '$senha'
-			WHERE id = '$id'");
-
-		
-
-
-	}
-
-
-
 	public function deletar_Funcionario($id){
 
 
-$this->db->query("DELETE FROM Funcionarios WHERE id ='$id' ");
+		$this->db->query("DELETE FROM Funcionarios WHERE id ='$id' ");
 
 
 	}   
+
+
+public function editar_dados($nome,$email,$senhacriptografada,$telefone,$dtn,$dta,$id){
+
+$this->db->query("UPDATE Funcionarios SET nome = '$nome' WHERE id = '$id'");
+$this->db->query("UPDATE Funcionarios SET email = '$email' WHERE id = '$id'");
+$this->db->query("UPDATE Funcionarios SET  senha  = '$senhacriptografada' WHERE id = '$id'");
+$this->db->query("UPDATE Funcionarios SET telefone = '$telefone' WHERE id = '$id'");
+$this->db->query("UPDATE Funcionarios SET  dataDeNascimento =  '$dtn' WHERE id = '$id'");
+$this->db->query("UPDATE Funcionarios SET dataDeAdmissao = '$dta' WHERE id = '$id'");
+
+}
 
 
 //$this->db->query('INSERT INTO Funcionarios(nome,email,senha,telefone,dataDeNascimento,dataDeAdmissao) VALUES (?,?,?,?,?,?)',$dados);
@@ -61,7 +57,7 @@ $this->db->query("DELETE FROM Funcionarios WHERE id ='$id' ");
 //$this->db->query("UPDATE Gerentes
 			//SET situacao = 'Gerentes_desativado'
 			//WHERE id = '$id'");
-		
+
 	//	$this->db->query(" INSERT INTO Gerentes_desativados
 	//		SELECT * FROM usuarios WHERE id='$id' ");
 
@@ -69,3 +65,5 @@ $this->db->query("DELETE FROM Funcionarios WHERE id ='$id' ");
 
 
 }
+
+?>

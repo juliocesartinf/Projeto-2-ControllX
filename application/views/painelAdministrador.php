@@ -13,7 +13,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-	<link rel="stylesheet" href="<?php echo base_url();?>public/css/style_painelGerente.css">
+	<link rel="stylesheet" href="<?php echo base_url();?>public/css/style_painelAdministrador.css">
 
 </head>
 
@@ -31,7 +31,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 
 					<button type="button" class="btn btn-success bmenu" data-toggle= 'modal' data-target='#modal_Funcionario' data-whatever="@mdo">Cadastrar Funcionario</button>
-					<button type="button" class="btn btn-dark bmenu">Cadastrar Gerente</button>
+					<button type="button" class="btn btn-dark bmenu"  data-toggle= 'modal' data-target='#modal_Gerente' data-whatever="@mdo">Cadastrar Gerente</button>
 					<button type="button" class="btn btn-danger bmenu">Produtos</button>
 
 					<div class="dropdown">
@@ -42,7 +42,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 							<a class="dropdown-item" href="" class="card-link" data-toggle= 'modal' data-target='#modal_Senha' data-whatever="@mdo">Alterar Senha</a>
 
-							<a class="dropdown-item" href="<?php echo site_url('PainelGerente/sair');?>">Sair</a>
+							<a class="dropdown-item" href="<?php echo site_url('PainelAdministrador/sair');?>">Sair</a>
 						</div>
 					</div>
 
@@ -79,9 +79,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 									<td><?php echo $row['telefone']; ?></td>
 									<td><?php echo $row['dataDeNascimento']; ?></td>
 									<td><?php echo $row['dataDeAdmissao']; ?></td>
-									<td><a href="<?php echo site_url('Funcionario/carregarFuncionario/'.$row['id']);?>">Editar</a>
+									<td><a href="<?php echo site_url('PainelAdministrador/carregarFuncionario/'.$row['id']);?>">Editar</a>
 										<br>
-									<a href="<?php echo site_url('Funcionario/deletar_Funcionario/'.$row['id']);?>" onclick="return confirma();">Deletar</a> </td>
+									<a href="<?php echo site_url('PainelAdministrador/deletar_Funcionario/'.$row['id']);?>" onclick="return confirma();">Deletar</a> </td>
 								</tr>
 							<?php }; ?>
 						</tbody>
@@ -118,7 +118,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						</button>
 						</div>';
 					} ?>
-					<form action="<?php echo site_url('PainelGerente/atualizarSenha')?>" method="post">
+					<form action="<?php echo site_url('PainelAdministrador/atualizarSenha')?>" method="post">
 						<div class="form-group">
 
 
@@ -180,7 +180,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						</button>
 						</div>';
 					} ?>
-					<form action="<?php echo site_url('Funcionario/cadastro')?>" method="post">
+					<form action="<?php echo site_url('PainelAdministrador/cadastro')?>" method="post">
 						
 
 						<div class="form-group">
@@ -252,7 +252,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						</button>
 						</div>';
 					} ?>
-					<form action="<?php echo site_url('Funcionario/editarFuncionario')?>" method="post">
+					<form action="<?php echo site_url('PainelAdministrador/editarFuncionario')?>" method="post">
 						
 
 						<div class="form-group">
@@ -283,6 +283,77 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							<div class="form-group col-md-6">
 								<label for="inputAddress2">Data de Admissão</label>
 								<input type="text" class="form-control" id="dt2ED" placeholder="00/00/0000" name="dta">
+							</div>
+						</div>
+						<button type="submit" id="bt_funcionario" class="btn btn-primary">SALVAR</button>
+
+
+
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- fim modal-->
+
+
+	<!--modal cadastrar gerente-->
+	
+	<div class="modal fade" id="modal_Gerente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header modalTituloGerente">
+					<h5 class="modal-title modalg_txt" id="exampleModalLabel"><img src="<?php echo base_url('public/imagens/gerente02.png');?>">       Cadastrar Gerente</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				
+				
+				<div class="modal-body">
+					<?php if ($this->session->userdata("erroCadastro")!='') {
+						echo '<div class="alert alert-danger alert-dismissible fade show" role="alert" style="position:absolute;z-index:2;width:94%;">		
+						</style>>
+						<strong></strong>"'.$this->session->userdata("erroCadastro").'"
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+						</div>';
+					} ?>
+					<form action="<?php echo site_url('PainelAdministrador/cadastro')?>" method="post">
+						
+
+						<div class="form-group">
+							<label for="inputAddress">Nome Completo</label>
+							<input type="name" maxlength="55" class="form-control" id="inputAddress" placeholder='ex: "Breno Felipe Vinicius Moura"' name="nome">
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="inputEmail4">Email</label>
+								 <input type="text" style="display:none">
+                                 <input type="password" style="display:none">
+								<input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="email">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="inputPassword4">Senha</label>
+								<input type="password" maxlength="35" class="form-control" id="inputPassword4" placeholder="Senha" name="senha">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputAddress2">Telefone</label>
+							<input type="text" class="form-control" id="tel" placeholder="Telefone, Celular" name="telefone">
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="inputAddress2">Data de nascimento</label>
+								<input type="text" class="form-control" id="dt" placeholder="00/00/0000" name="dtn">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="inputAddress2">Data de Admissão</label>
+								<input type="text" class="form-control" id="dt2" placeholder="00/00/0000" name="dta">
 							</div>
 						</div>
 						<button type="submit" id="bt_funcionario" class="btn btn-primary">SALVAR</button>

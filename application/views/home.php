@@ -18,7 +18,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 <body>
 
-  <nav  class="navbar navbar-light bg-light">
+  <nav  class="navbar navbar-light barra">
     <div class="container-fluid">
       <a id="titulo" class="navbar-brand" href="<?php echo site_url('Home');?>">ControllX
       </a>
@@ -44,9 +44,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
         <input type="password" name="senha" placeholder="senha" maxlength="30" class="form-control" id="InputPassword1">
       </div>
       <a href="#">Esqueceu senha ?</a>
-      <br><br>
+      <br>
       <button id="entrar" type="submit" class="btn btn-primary ">Entrar</button>
-      <button id="cadastrese" type="submit" formaction="<?php echo site_url('CadastroGerente');?>" class="btn btn-secondary">Cadastre-se</button>
     </form>
   </div>
 

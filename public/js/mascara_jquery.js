@@ -5,7 +5,6 @@ jQuery(function($){
 	$("#tel").mask("(99) 99999-9999");
 	$("#dt").mask("99/99/9999");
 	$("#dt2").mask("99/99/9999");
-	$("#pass").mask("*******");
 	$("#lt").mask("aaaaaaaaaaaaa");
 
 

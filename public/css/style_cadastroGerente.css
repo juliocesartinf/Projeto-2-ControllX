@@ -1,11 +1,25 @@
 
 #titulo{
 
-color: steelblue;
+color: #FFFFFF;
 font-size: x-large;
 font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
 }
 
+.barra{
+
+background-color: #669FE7;
+
+}
+
+
+body{
+
+background-color:#EBEFF4; 
+
+
+}
 
 #formulario{
 
@@ -15,10 +29,6 @@ height: 95%;
 background-color: white;
 margin-top: 2%;
 border-radius: 5px;
-border-style: ridge;
-border-color: #C0C0C0;
-border-width: 1px;
-
 
 }
 input{
@@ -40,10 +50,10 @@ margin-bottom: 15px;
 
 }
 
-h2{
+h1{
 
 
-padding-left: 30%;
+padding-left: 15%;
 padding-top: 7%;
 
 
@@ -74,4 +84,3 @@ color: white;
 width: 120px;
 margin-top: 5px;
 }
-

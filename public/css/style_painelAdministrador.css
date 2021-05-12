@@ -81,6 +81,14 @@ color:white;
 
 }
 
+.modalTituloGerente{
+
+
+background-color: #1B1B1B;
+
+
+}
+
 .modal_txt{
 
 font-size: 23px;
@@ -98,6 +106,15 @@ margin-left: 0%;
 margin-top: 4%;
 font-family: Helvetica;
 
+
+}
+.modalg_txt{
+
+font-size: 20px;
+margin-left: 22%;
+margin-top: 4%;
+font-family: Helvetica;
+color: white;
 
 }
 

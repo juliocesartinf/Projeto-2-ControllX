@@ -1,62 +1,65 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Home extends CI_Controller
-{
+class Home extends CI_Controller{
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
+
+
 	public function index(){
 
-		$this->usuario_on();
+		$this->buscarADM();
+		$this->chamarUser();
+		
+		if ($this->session->userdata("login_erro")!='') {
+
 		$erros = $this->session->userdata("login_erro");
+		$this->load->view('home', $erros);
+		$this->session->set_userdata("login_erro",'');
+			
+		}else{$erros = array('mensagens' => '');
+		$this->load->view('home', $erros);}
+		
+		
+	}
 
-		if ($erros !='') {
-			$this->load->view('home', $erros);
-			$this->session->set_userdata("login_erro",'');
+	public function buscarADM(){
 
-		}else{
-			$erros = array('mensagens' => '');
-			$this->load->view('home', $erros);
+		$this->load->Model('AdministradorModel');
+		$dados = $this->AdministradorModel->carregar_dados();
 
 
-
+		if ($dados->num_rows()==0 & $this->session->userdata("login_erro")=='' ) {
+			redirect('Administrador');
+			exit();
 		}
-
 
 		
 
 	}
 
 
-	private function usuario_on(){
+	public function chamarUser(){
 
+		$user=$this->session->userdata("User_logado");
+		$tipo=$this->session->userdata("tipo_User_logado");
 
-		$sessao = $this->session->userdata("User_logado");
+		if ($user !='' & $tipo=="administrador") {
 
-		if ($sessao!='') {
-
+			redirect('PainelAdministrador/dados');
+			exit();
+		}elseif ($user !='' & $tipo=="gerente" ) {
 			redirect('PainelGerente/dados');
 			exit();
-
-
+		}elseif ($user !='' & $tipo=="funcionario" ) {
+			redirect('PainelFuncionario/dados');
+			exit();		
 		}
 
+
 		
+
 	}
+
 
 
 	public function login(){
@@ -84,65 +87,80 @@ class Home extends CI_Controller
 			
 		} else {
 			
-			$this->validar_gerente($email,$senha);
+			$this->carregar_usuario($email,$senha);
 			$this->session->set_userdata("login_erro",'');
-
-
-
-		}
-
-
-	}
-
-	private function validar_gerente($email,$senha)
-	{
-
-
-		$this->load->Model('GerenteModel');
-		$dados = $this->GerenteModel->carregar_dados();
-
-
-		if ($dados->num_rows()==0) {
-
-
-
-			$erros = array('mensagens' => 'Conta Não Localizada !');
-			$this->session->set_userdata("login_erro",$erros);
-			redirect('Home');
 			exit();
 
 
 
-
-		}
-
-
-		foreach  ( $dados -> result_array ()  as  $row ) {
-
-
-
-			if ($email == $row['email'] & password_verify($senha, $row['senha']) ) {
-
-
-				$this->session->set_userdata("User_logado",$email);
-
-				redirect('PainelGerente/dados');
-				exit();
-
-
-
-			}else{
-
-				$erros = array('mensagens' => 'Nome de usuário ou senha incorretos !');
-				$this->session->set_userdata("login_erro",$erros);
-				redirect('Home');
-				exit();
-
-			}
 		}
 
 
 	}
 
+	private function carregar_usuario($email,$senha)
+	{
 
-}
+
+		$this->load->Model('AdministradorModel');
+		$dados_adm = $this->AdministradorModel->carregar_dados();
+
+		foreach  ( $dados_adm -> result_array ()  as  $row ) {
+
+			if ($email == $row['email'] & password_verify($senha, $row['senha']) ) {
+
+				$this->session->set_userdata("User_logado",$email);
+				$this->session->set_userdata("tipo_User_logado","administrador");
+				redirect('PainelAdministrador/dados');
+				exit();
+
+
+			}}
+
+
+			$this->load->Model('GerenteModel');
+			$dados_gere = $this->GerenteModel->carregar_dados();
+
+			foreach  ( $dados_gere -> result_array ()  as  $row ) {
+				if ($email == $row['email'] & password_verify($senha, $row['senha']) ) {
+
+
+					$this->session->set_userdata("User_logado",$email);
+					$this->session->set_userdata("tipo_User_logado","gerente");
+					redirect('PainelGerente/dados');
+					exit();
+
+				}}
+
+
+				$this->load->Model('FuncionarioModel');
+				$dados_func = $this->FuncionarioModel->carregar_dados();
+
+				foreach  ( $dados_func -> result_array ()  as  $row ) {
+
+					if ($email == $row['email'] & password_verify($senha, $row['senha']) ) {
+
+						$this->session->set_userdata("User_logado",$email);
+						$this->session->set_userdata("tipo_User_logado","funcionario");
+						redirect('PainelFuncionario/dados');
+						exit();		
+					}}
+
+					$erros = array('mensagens' => 'Usuário ou Senha incorretos !');
+					$this->session->set_userdata("login_erro",$erros);
+					redirect('Home');
+					exit();
+
+
+				}
+
+
+
+
+
+
+			}
+			?>
+
+
+
