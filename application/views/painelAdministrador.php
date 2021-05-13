@@ -32,7 +32,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 					<button type="button" class="btn btn-success bmenu" data-toggle= 'modal' data-target='#modal_Funcionario' data-whatever="@mdo">Cadastrar Funcionario</button>
 					<button type="button" class="btn btn-dark bmenu"  data-toggle= 'modal' data-target='#modal_Gerente' data-whatever="@mdo">Cadastrar Gerente</button>
-					<button type="button" class="btn btn-danger bmenu">Produtos</button>
+					<button type="button" class="btn btn-danger bmenu">Cadastrar Produto</button>
 
 					<div class="dropdown">
 						<button class="btn btn-primary bmenu dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -52,8 +52,46 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 			</div>
 		</div>
-
 		<div class="row">
+			<div class="col-md-12 check_bt">
+			<form name="form">
+			<div class="form-check form-check-inline">
+			<input class="form-check-input" type="radio" name="tab" id="inlineRadio1" value="Gerentes"CHECKED>
+			<label class="form-check-label" for="inlineRadio1"><b>Listar Gerentes</b></label>
+		</div>
+		<div class="form-check form-check-inline">
+			<input class="form-check-input" type="radio" name="tab" id="inlineRadio2" value="Funcionarios">
+			<label class="form-check-label" for="inlineRadio2"><b>Listar Funcionários</b></label>
+		</div>
+		<div class="form-check form-check-inline">
+			<input class="form-check-input" type="radio" name="tab" id="inlineRadio2" value="Produtos">
+			<label class="form-check-label" for="inlineRadio2"><b>Listar Produtos</b></label>
+		</div>
+	</form>
+
+
+			</div>
+		</div>
+		
+			
+			
+
+	
+		
+<style type="text/css">
+	
+.tabelaf{
+
+display: none;
+
+}
+
+
+</style>
+
+		
+
+		<div class="row tabelaf">
 
 			<div class="col-md-12 col-sm-12">
 
@@ -79,9 +117,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 									<td><?php echo $row['telefone']; ?></td>
 									<td><?php echo $row['dataDeNascimento']; ?></td>
 									<td><?php echo $row['dataDeAdmissao']; ?></td>
-									<td><a href="<?php echo site_url('PainelAdministrador/carregarFuncionario/'.$row['id']);?>">Editar</a>
+									<td><a href="<?php echo site_url('Funcionario/carregarFuncionario/'.$row['id']);?>">Editar</a>
 										<br>
-									<a href="<?php echo site_url('PainelAdministrador/deletar_Funcionario/'.$row['id']);?>" onclick="return confirma();">Deletar</a> </td>
+									<a href="<?php echo site_url('Funcionario/deletar_Funcionario/'.$row['id']);?>" onclick="return confirma();">Deletar</a> </td>
 								</tr>
 							<?php }; ?>
 						</tbody>
@@ -92,6 +130,49 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			</div>
 		</div>	
 	</div>
+
+
+<div class="row tabelag">
+
+			<div class="col-md-12 col-sm-12">
+
+				<div id="tabela_funcionarios"> 
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">Gerente</th>
+								<th scope="col">E-mail</th>
+								<th scope="col">Telefone</th>
+								<th scope="col">Data de Nascimento</th>
+								<th scope="col">Data de Admissão</th>
+								<th scope="col">Opções</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<?php foreach  ( $this->session->userdata("tabela_funcionarios") -> result_array ()  as  $row ) { ?>
+
+								<tr>
+									<td><?php echo $row['nome']; ?></td>
+									<td><?php echo $row['email']; ?></td>
+									<td><?php echo $row['telefone']; ?></td>
+									<td><?php echo $row['dataDeNascimento']; ?></td>
+									<td><?php echo $row['dataDeAdmissao']; ?></td>
+									<td><a href="<?php echo site_url('Funcionario/carregarFuncionario/'.$row['id']);?>">Editar</a>
+										<br>
+									<a href="<?php echo site_url('Funcionario/deletar_Funcionario/'.$row['id']);?>" onclick="return confirma();">Deletar</a> </td>
+								</tr>
+							<?php }; ?>
+						</tbody>
+					</table>
+				</div>
+				<br>
+
+			</div>
+		</div>	
+	</div>
+
+
 
 
 	<!--modal alterar senha-->
@@ -118,7 +199,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						</button>
 						</div>';
 					} ?>
-					<form action="<?php echo site_url('PainelAdministrador/atualizarSenha')?>" method="post">
+					<form action="<?php echo site_url('Administrador/atualizarSenha')?>" method="post">
 						<div class="form-group">
 
 
@@ -180,7 +261,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						</button>
 						</div>';
 					} ?>
-					<form action="<?php echo site_url('PainelAdministrador/cadastro')?>" method="post">
+					<form action="<?php echo site_url('Funcionario/cadastro')?>" method="post">
 						
 
 						<div class="form-group">
@@ -252,7 +333,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						</button>
 						</div>';
 					} ?>
-					<form action="<?php echo site_url('PainelAdministrador/editarFuncionario')?>" method="post">
+					<form action="<?php echo site_url('Funcionario/editarFuncionario')?>" method="post">
 						
 
 						<div class="form-group">
@@ -323,7 +404,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						</button>
 						</div>';
 					} ?>
-					<form action="<?php echo site_url('PainelAdministrador/cadastro')?>" method="post">
+					<form action="<?php echo site_url('Gerente/cadastro_gerente')?>" method="post">
 						
 
 						<div class="form-group">
@@ -454,6 +535,22 @@ document.getElementById('dt2ED').value='".$dados['dataDeAdmissao']."';
 			}
 			return false;	
 		}
+
+
+var tb = document.form.tab;
+var prev = null;
+
+for (var i = 0; i < tb.length; i++) {
+  tb[i].onclick = function() {
+    selecionado(this);
+  }
+};
+
+function selecionado(e) {
+  alert(e.value);
+}
+
+
 	</script>
 
 

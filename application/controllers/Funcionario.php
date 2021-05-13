@@ -46,8 +46,17 @@ class Funcionario extends CI_Controller {
 			$erros = validation_errors();
 
 			$this->session->set_userdata("erroCadastro",$erros);
-			redirect('PainelGerente/dados');
-			exit();
+			if ($this->session->userdata("tipo_User_logado")=='administrador') {
+					redirect('PainelAdministrador/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='gerente') {
+					redirect('PainelGerente/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='funcionario') {
+					redirect('PainelFuncionario/dados');
+					exit();
+				}
+
 		}
 
 
@@ -62,10 +71,18 @@ class Funcionario extends CI_Controller {
 
 
 				$this->session->set_userdata("erroCadastro",'Um Funcionário já esta Vinculado a esse E-MAIL: "Tente novamente"');
-				redirect('PainelGerente/dados');
-				exit();
+				
 
-
+				if ($this->session->userdata("tipo_User_logado")=='administrador') {
+					redirect('PainelAdministrador/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='gerente') {
+					redirect('PainelGerente/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='funcionario') {
+					redirect('PainelFuncionario/dados');
+					exit();
+				}
 
 			}
 		}
@@ -81,8 +98,46 @@ class Funcionario extends CI_Controller {
 
 
 				$this->session->set_userdata("erroCadastro",'O endereco de E-MAIL inserido está Vinculado ao gerente: "Tente novamente"');
-				redirect('PainelGerente/dados');
-				exit();
+
+				if ($this->session->userdata("tipo_User_logado")=='administrador') {
+					redirect('PainelAdministrador/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='gerente') {
+					redirect('PainelGerente/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='funcionario') {
+					redirect('PainelFuncionario/dados');
+					exit();
+				}
+
+
+
+			}
+		}
+
+
+
+				$this->load->Model('AdministradorModel');
+		$dados = $this->AdministradorModel->carregar_dados();
+
+
+		foreach  ( $dados -> result_array ()  as  $row ) {
+
+			if ($email == $row['email']) {
+
+
+				$this->session->set_userdata("erroCadastro",'O endereco de E-MAIL inserido está Vinculado ao Administrador: "Tente novamente"');
+
+				if ($this->session->userdata("tipo_User_logado")=='administrador') {
+					redirect('PainelAdministrador/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='gerente') {
+					redirect('PainelGerente/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='funcionario') {
+					redirect('PainelFuncionario/dados');
+					exit();
+				}
 
 
 
@@ -92,8 +147,17 @@ class Funcionario extends CI_Controller {
 		$this->FuncionarioModel->gravar_dados($nome,$email,$senhacriptografada,$telefone,$dtn,$dta);
 
 
-		redirect('PainelGerente/dados');
-		exit();
+		if ($this->session->userdata("tipo_User_logado")=='administrador') {
+					redirect('PainelAdministrador/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='gerente') {
+					redirect('PainelGerente/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='funcionario') {
+					redirect('PainelFuncionario/dados');
+					exit();
+				}
+
 
 
 	}
@@ -102,8 +166,16 @@ class Funcionario extends CI_Controller {
 	{
 		$this->load->Model('FuncionarioModel');
 		$this->FuncionarioModel->deletar_Funcionario($id);
-		redirect('PainelGerente/dados');
-		exit();
+		if ($this->session->userdata("tipo_User_logado")=='administrador') {
+					redirect('PainelAdministrador/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='gerente') {
+					redirect('PainelGerente/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='funcionario') {
+					redirect('PainelFuncionario/dados');
+					exit();
+				}
 	}
 
 
@@ -120,8 +192,16 @@ class Funcionario extends CI_Controller {
 
 				$this->session->set_userdata("funcionario_carregado",$row);
 				$this->session->set_userdata("Modal_funcionario_carregado",true);
-				redirect('PainelGerente/dados');
-				exit();
+				if ($this->session->userdata("tipo_User_logado")=='administrador') {
+					redirect('PainelAdministrador/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='gerente') {
+					redirect('PainelGerente/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='funcionario') {
+					redirect('PainelFuncionario/dados');
+					exit();
+				}
 
 			}
 		}
@@ -169,8 +249,16 @@ public function editarFuncionario(){
 
 			$this->session->set_userdata("erroEditar",$erros);
 			$this->session->set_userdata("Modal_funcionario_carregado",true);
-			redirect('PainelGerente/dados');
-			exit();
+			if ($this->session->userdata("tipo_User_logado")=='administrador') {
+					redirect('PainelAdministrador/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='gerente') {
+					redirect('PainelGerente/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='funcionario') {
+					redirect('PainelFuncionario/dados');
+					exit();
+				}
 		}
 
 
@@ -186,8 +274,16 @@ public function editarFuncionario(){
 
 
 				$this->session->set_userdata("erroEditar",'O endereco de E-MAIL inserido está Vinculado ao gerente: "Tente novamente"');
-				redirect('PainelGerente/dados');
-				exit();
+				if ($this->session->userdata("tipo_User_logado")=='administrador') {
+					redirect('PainelAdministrador/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='gerente') {
+					redirect('PainelGerente/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='funcionario') {
+					redirect('PainelFuncionario/dados');
+					exit();
+				}
 
 
 
@@ -197,13 +293,16 @@ public function editarFuncionario(){
         $dados = $this->session->userdata("funcionario_carregado");
         $id_funcionario = $dados['id'];
 		$this->FuncionarioModel->editar_dados($nome,$email,$senhacriptografada,$telefone,$dtn,$dta,$id_funcionario);
-		redirect('PainelGerente/dados');
-		exit();
-
-
-
-
-
+		if ($this->session->userdata("tipo_User_logado")=='administrador') {
+					redirect('PainelAdministrador/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='gerente') {
+					redirect('PainelGerente/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='funcionario') {
+					redirect('PainelFuncionario/dados');
+					exit();
+				}
 
 
 	}

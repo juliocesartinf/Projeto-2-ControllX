@@ -51,7 +51,7 @@ public function limpar_dados(){
 }
 
 
-public function realizar_cadastro(){
+public function cadastro_gerente(){
 
 
 	$cpf=$this->input->post('cpf');
