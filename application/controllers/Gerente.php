@@ -18,60 +18,48 @@ class Gerente extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function index(){
-
-		$result = $this->session->userdata("cadastro_erro");
-
-		if ($result!='') {
-
-			$this->load->view('cadastroAdm', $result);
-			$this->session->set_userdata("cadastro_erro",'');
-			$this->limpar_dados();
-
-		}else{$erros = array('mensagens' => '');
-		$this->load->view('cadastroAdm', $erros);
-		$this->limpar_dados();
-
-	}
-
-}
-
+	
 
 
 public function limpar_dados(){
 
-	$this->session->set_userdata("cpf_inserido",'');
-	$this->session->set_userdata("nome_inserido",'');
-	$this->session->set_userdata("dataDN_inserido",'');
-	$this->session->set_userdata("rg_inserido",'');
-	$this->session->set_userdata("email_inserido",'');
-	$this->session->set_userdata("senha_inserido",'');
-	$this->session->set_userdata("senhaC_inserido",'');
+	
+	$this->session->set_userdata("cpf_inserido_gerente",'');
+	$this->session->set_userdata("nome_inserido_gerente",'');
+	$this->session->set_userdata("dataDN_inserido_gerente",'');
+	$this->session->set_userdata("rg_inserido_gerente",'');
+	$this->session->set_userdata("email_inserido_gerente",'');
+	$this->session->set_userdata("dataAD_inserido_gerente",'');
+	$this->session->set_userdata("senha_inserido_gerente",'');
+	$this->session->set_userdata("senhaC_inserido_gerente",'');
+
 
 }
 
 
 public function cadastro_gerente(){
 
-
+    $nome=$this->input->post('nome');
 	$cpf=$this->input->post('cpf');
-	$nome=$this->input->post('nome');
-	$dt=$this->input->post('dataDN');
+	$dataDN=$this->input->post('dataDN');
 	$rg=$this->input->post('rg');
 	$email=$this->input->post('email');
+    $dataAD=$this->input->post('dataAD');
 	$senha=$this->input->post('senha');
 	$senhaconf=$this->input->post('senhaC');
 
 //inverter a data e colocando  as barras "/"
 	//$dt = date('d/m/Y', strtotime($dataDN));
 
-	$this->session->set_userdata("cpf_inserido",$cpf);
-	$this->session->set_userdata("nome_inserido",$nome);
-	$this->session->set_userdata("dataDN_inserido",$dt);
-	$this->session->set_userdata("rg_inserido",$rg);
-	$this->session->set_userdata("email_inserido",$email);
-	$this->session->set_userdata("senha_inserido",$senha);
-	$this->session->set_userdata("senhaC_inserido",$senhaconf);
+
+	$this->session->set_userdata("cpf_inserido_gerente",$cpf);
+	$this->session->set_userdata("nome_inserido_gerente",$nome);
+	$this->session->set_userdata("dataDN_inserido_gerente",$dataDN);
+	$this->session->set_userdata("rg_inserido_gerente",$rg);
+	$this->session->set_userdata("email_inserido_gerente",$email);
+	$this->session->set_userdata("dataAD_inserido_gerente",$dataAD);
+	$this->session->set_userdata("senha_inserido_gerente",$senha);
+	$this->session->set_userdata("senhaC_inserido_gerente",$senhaconf);
 
 
 	$this->load->library('form_validation');
@@ -88,6 +76,9 @@ public function cadastro_gerente(){
 	$this->form_validation->set_rules('rg', 'RG',
 		'required|min_length[12]',array('required' => 'Você deve preencher o %s.'));
 
+	$this->form_validation->set_rules('dataAD', 'DATA DE ADMISSÃO',
+		'required|min_length[10]',array('required' => 'Você deve preencher a %s.'));
+
 	$this->form_validation->set_rules('senha', 'SENHA', 'required|min_length[7]',
 		array('required' => 'Você deve preencher a %s.'));
 
@@ -97,30 +88,48 @@ public function cadastro_gerente(){
 	$this->form_validation->set_rules('email', 'EMAIL', 'required|valid_email',array('required' => 'Você deve preencher o %s.'));
 
 
-
-
-
-
 	if ($this->form_validation->run() == FALSE) {
 
-		$erros = array('mensagens' => validation_errors());
-		$this->session->set_userdata("cadastro_erro",$erros);
-		redirect('CadastroGerente');
-		exit();
+		//$erros = array('mensagens' => validation_errors());
+		//$this->session->set_userdata("cadastro_erro",$erros);
+		$erros = validation_errors();
+		$this->session->set_userdata("erroCadastro_Gerente",$erros);
+
+		if ($this->session->userdata("tipo_User_logado")=='administrador') {
+					redirect('PainelAdministrador/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='gerente') {
+					redirect('PainelGerente/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='funcionario') {
+					redirect('PainelFuncionario/dados');
+					exit();
+				}
 
 	} elseif ($this->validaCPF($cpf)==false) {
 
-		$erros = array('mensagens' => "CPF Invalido !");	
-		$this->session->set_userdata("cadastro_erro",$erros);
-		redirect('CadastroGerente');
-		exit();
+		//$erros = array('mensagens' => "CPF Invalido !");	
+		//$this->session->set_userdata("cadastro_erro",$erros);
+
+		$this->session->set_userdata("erroCadastro_Gerente","CPF Invalido !");
+
+		if ($this->session->userdata("tipo_User_logado")=='administrador') {
+			redirect('PainelAdministrador/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='gerente') {
+					redirect('PainelGerente/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='funcionario') {
+					redirect('PainelFuncionario/dados');
+					exit();
+				}
 
 
 	} else {
 
 		$this->verificar_dados($cpf,$email);
-		$this->criptografar_dados($cpf,$nome,$dt,$rg,$email,$senha);
-		$this->session->set_userdata("cadastro_erro",'');
+		$this->criptografar_dados($cpf,$nome,$dataDN,$dataAD,$rg,$email,$senha);
+		$this->session->set_userdata("erroCadastro_Gerente",'');
 
 
 
@@ -140,19 +149,35 @@ private function verificar_dados($cpf,$email)
 		if ($email == $row['email']) {
 
 
-			$erros = array('mensagens' => 'Uma conta já esta Vinculada a esse E-MAIL');
-			$this->session->set_userdata("cadastro_erro",$erros);
-			redirect('CadastroGerente');
-			exit();
+			//$erros = array('mensagens' => 'Uma conta já esta Vinculada a esse E-MAIL');
+			$this->session->set_userdata("erroCadastro_Gerente",'Uma conta já esta Vinculada a esse E-MAIL');
+			if ($this->session->userdata("tipo_User_logado")=='administrador') {
+					redirect('PainelAdministrador/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='gerente') {
+					redirect('PainelGerente/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='funcionario') {
+					redirect('PainelFuncionario/dados');
+					exit();
+				}
 
 
 
 		}elseif ( password_verify($cpf, $row['CPF'])) {
 
-			$erros = array('mensagens' => 'Uma conta já esta Vinculada a esse CPF');
-			$this->session->set_userdata("cadastro_erro",$erros);
-			redirect('CadastroGerente');
-			exit();
+			//$erros = array('mensagens' => 'Uma conta já esta Vinculada a esse CPF');
+			$this->session->set_userdata("erroCadastro_Gerente",'Uma conta já esta Vinculada a esse CPF');
+			if ($this->session->userdata("tipo_User_logado")=='administrador') {
+					redirect('PainelAdministrador/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='gerente') {
+					redirect('PainelGerente/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='funcionario') {
+					redirect('PainelFuncionario/dados');
+					exit();
+				}
 
 		}
 	}
@@ -161,7 +186,7 @@ private function verificar_dados($cpf,$email)
 }
 
 
-private function criptografar_dados($cpf,$nome,$dt,$rg,$email,$senha){
+private function criptografar_dados($cpf,$nome,$dataDN,$dataAD,$rg,$email,$senha){
 
 	$cpfCriptografado = password_hash($cpf, PASSWORD_BCRYPT);
 	$rgCriptografado = password_hash($rg, PASSWORD_BCRYPT); 
@@ -169,16 +194,228 @@ private function criptografar_dados($cpf,$nome,$dt,$rg,$email,$senha){
 
          //mandar dados do gerente para o model respectivo
 	$this->load->Model('GerenteModel');
-	$this->GerenteModel->gravar_dados($nome,$email,$senhaCriptografada,$dt,$cpfCriptografado,$rgCriptografado);
+	$this->GerenteModel->gravar_dados($nome,$email,$senhaCriptografada,$dataDN,$dataAD,$cpfCriptografado,$rgCriptografado);
 
 	$this->limpar_dados();
 		//variavel de sessão que salva o gerente cadastrado
-	$this->session->set_userdata("User_logado",$email);
-	redirect('PainelGerente/dados');
-	exit();
+	//$this->session->set_userdata("User_logado",$email);
+	if ($this->session->userdata("tipo_User_logado")=='administrador') {
+					redirect('PainelAdministrador/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='gerente') {
+					redirect('PainelGerente/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='funcionario') {
+					redirect('PainelFuncionario/dados');
+					exit();
+				}
 
 
 }
+
+
+//mudar as regars dos dois
+	public function desativar_Gerente($id=''){
+
+
+		$this->load->Model('GerenteModel');
+		$this->GerenteModel->desativar_Gerente($id);
+		if ($this->session->userdata("tipo_User_logado")=='administrador') {
+			redirect('PainelAdministrador/dados');
+			exit();
+		}elseif ($this->session->userdata("tipo_User_logado")=='gerente') {
+			redirect('PainelGerente/dados');
+			exit();
+		}elseif ($this->session->userdata("tipo_User_logado")=='funcionario') {
+			redirect('PainelFuncionario/dados');
+			exit();
+		}
+	
+	}
+
+		public function ativar_Gerente($id=''){
+
+
+		$this->load->Model('GerenteModel');
+		$this->GerenteModel->ativar_Gerente($id);
+		if ($this->session->userdata("tipo_User_logado")=='administrador') {
+			redirect('PainelAdministrador/dados');
+			exit();
+		}elseif ($this->session->userdata("tipo_User_logado")=='gerente') {
+			redirect('PainelGerente/dados');
+			exit();
+		}elseif ($this->session->userdata("tipo_User_logado")=='funcionario') {
+			redirect('PainelFuncionario/dados');
+			exit();
+		}
+	
+	}
+
+public function carregarGerente($id=''){
+
+$this->load->Model('GerenteModel');
+		$dados = $this->GerenteModel->carregar_dados();
+
+
+		foreach  ( $dados -> result_array ()  as  $row ) {
+
+			if ($id == $row['id']) {
+
+				$this->session->set_userdata("gerente_carregado",$row);
+				$this->session->set_userdata("Modal_gerente_carregado",true);
+				if ($this->session->userdata("tipo_User_logado")=='administrador') {
+					redirect('PainelAdministrador/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='gerente') {
+					redirect('PainelGerente/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='funcionario') {
+					redirect('PainelFuncionario/dados');
+					exit();
+				}
+
+			}
+		}
+
+
+
+}
+
+
+public function editar_gerente(){
+	
+    $nome=$this->input->post('nome');
+	$cpf=$this->input->post('cpf');
+	$dataDN=$this->input->post('dataDN');
+	$rg=$this->input->post('rg');
+	$email=$this->input->post('email');
+    $dataAD=$this->input->post('dataAD');
+	$senha=$this->input->post('senha');
+	$senhaconf=$this->input->post('senhaC');
+
+
+    $this->load->library('form_validation');
+
+	$this->form_validation->set_rules('cpf', 'CPF',
+		'min_length[14]',array('required' => 'Você deve preencher o %s.'));
+
+	$this->form_validation->set_rules('nome', 'NOME',
+		'min_length[5]|max_length[55]',array('required' => 'Você deve preencher o %s.'));
+
+	$this->form_validation->set_rules('dataDN', 'DATA DE NASCIMENTO',
+		'min_length[10]',array('required' => 'Você deve preencher a %s.'));
+
+	$this->form_validation->set_rules('rg', 'RG',
+		'min_length[12]',array('required' => 'Você deve preencher o %s.'));
+
+	$this->form_validation->set_rules('dataAD', 'DATA DE ADMISSÃO',
+		'min_length[10]',array('required' => 'Você deve preencher a %s.'));
+
+	$this->form_validation->set_rules('senha', 'SENHA', 'min_length[7]',
+		array('required' => 'Você deve preencher a %s.'));
+
+	$this->form_validation->set_rules('senhaC', 'CONFIRMAR SENHA',
+		'matches[senha]',array('required' => 'Você deve preencher o campo %s.'));
+
+	$this->form_validation->set_rules('email', 'EMAIL', 'required|valid_email',array('required' => 'Você deve preencher o %s.'));
+
+		if ($this->form_validation->run() == FALSE) {
+			
+			$erros = validation_errors();
+
+			$this->session->set_userdata("erroEditar_Gerente",$erros);
+			$this->session->set_userdata("Modal_gerente_carregado",true);
+			if ($this->session->userdata("tipo_User_logado")=='administrador') {
+					redirect('PainelAdministrador/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='gerente') {
+					redirect('PainelGerente/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='funcionario') {
+					redirect('PainelFuncionario/dados');
+					exit();
+				}
+
+
+			} elseif ($cpf!="") {
+				if ($this->validaCPF($cpf)==false) {
+
+
+	//$erros = array('mensagens' => "CPF Invalido !");	
+		//$this->session->set_userdata("cadastro_erro",$erros);
+
+					$this->session->set_userdata("erroEditar_Gerente","CPF Invalido !");
+					$this->session->set_userdata("Modal_gerente_carregado",true);
+
+					if ($this->session->userdata("tipo_User_logado")=='administrador') {
+						redirect('PainelAdministrador/dados');
+						exit();
+					}elseif ($this->session->userdata("tipo_User_logado")=='gerente') {
+						redirect('PainelGerente/dados');
+						exit();
+					}elseif ($this->session->userdata("tipo_User_logado")=='funcionario') {
+						redirect('PainelFuncionario/dados');
+						exit();
+					}
+
+
+				}
+
+			} else {
+
+		//$this->verificar_dados($cpf,$email);
+		$dados = $this->session->userdata("gerente_carregado");
+		$this->criptografar_dadosAlterados($cpf,$nome,$dataDN,$dataAD,$rg,$email,$senha,$dados['id']);
+		$this->session->set_userdata("erroEditar_Gerente",'');
+
+
+
+	}
+
+
+
+
+
+	}
+
+
+
+public function criptografar_dadosAlterados($cpf,$nome,$dataDN,$dataAD,$rg,$email,$senha,$id){
+	
+
+	$cpfCriptografado = password_hash($cpf, PASSWORD_BCRYPT);
+	$rgCriptografado = password_hash($rg, PASSWORD_BCRYPT); 
+	$senhaCriptografada = password_hash($senha, PASSWORD_BCRYPT);
+	
+
+         //mandar dados do gerente para o model respectivo
+	$this->load->Model('GerenteModel');
+	$this->GerenteModel->atualizar_dados($nome,$email,$senhaCriptografada,$dataDN,$dataAD,$cpfCriptografado,$rgCriptografado,$id);
+
+	$this->limpar_dados();
+		//variavel de sessão que salva o gerente cadastrado
+	//$this->session->set_userdata("User_logado",$email);
+	if ($this->session->userdata("tipo_User_logado")=='administrador') {
+					redirect('PainelAdministrador/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='gerente') {
+					redirect('PainelGerente/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='funcionario') {
+					redirect('PainelFuncionario/dados');
+					exit();
+				}
+
+
+
+
+}
+
+
+
+
+
+
 
 public function validaCPF($cpf) {
 

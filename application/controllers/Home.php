@@ -87,6 +87,7 @@ class Home extends CI_Controller{
 			
 		} else {
 			
+			$this->session->set_userdata("tab_escolhida",'produtos');
 			$this->carregar_usuario($email,$senha);
 			$this->session->set_userdata("login_erro",'');
 			exit();

@@ -8,11 +8,11 @@ class FuncionarioModel extends CI_Model {
 	public function gravar_dados($nome,$email,$senhacriptografada,$telefone,$dtn,$dta)
 	{
 
-		$dados = [$nome,$email,$senhacriptografada,$telefone,$dtn,$dta];
+		$dados = [$nome,$email,$senhacriptografada,$telefone,$dtn,$dta,'Login Ativo'];
 
 
 
-		$this->db->query('INSERT INTO Funcionarios(nome,email,senha,telefone,dataDeNascimento,dataDeAdmissao) VALUES (?,?,?,?,?,?)',$dados);
+		$this->db->query('INSERT INTO Funcionarios(nome,email,senha,telefone,dataDeNascimento,dataDeAdmissao,situacao) VALUES (?,?,?,?,?,?,?)',$dados);
 
 
 		
@@ -50,6 +50,25 @@ $this->db->query("UPDATE Funcionarios SET  dataDeNascimento =  '$dtn' WHERE id =
 $this->db->query("UPDATE Funcionarios SET dataDeAdmissao = '$dta' WHERE id = '$id'");
 
 }
+
+public function desativar_Funcionario($id){
+	
+
+$this->db->query("UPDATE Funcionarios SET situacao = 'Login Desativado' WHERE id = '$id'");
+
+
+}
+
+
+public function ativar_Funcionario($id){
+	
+
+$this->db->query("UPDATE Funcionarios SET situacao = 'Login Ativado' WHERE id = '$id'");
+
+
+}
+
+
 
 
 //$this->db->query('INSERT INTO Funcionarios(nome,email,senha,telefone,dataDeNascimento,dataDeAdmissao) VALUES (?,?,?,?,?,?)',$dados);
