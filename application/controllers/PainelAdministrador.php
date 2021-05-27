@@ -28,6 +28,7 @@ class PainelAdministrador extends CI_Controller {
 			$this->session->set_userdata("Modal_funcionario_carregado",false);
 			$this->session->set_userdata("Modal_gerente_carregado",false);
 			$this->session->set_userdata("Modal_produto_carregado",false);
+			$this->session->set_userdata("retirar_produto",false);
 			
 
 			
@@ -79,7 +80,7 @@ class PainelAdministrador extends CI_Controller {
 		$this->load->Model('ProdutoModel');
 		$dados = $this->ProdutoModel->carregar_dados();
 		$this->session->set_userdata("tabela_produtos",$dados);
-		$this->load->view('PainelAdministrador');
+		$this->load->view('painelAdministrador');
 
 
 		//foreach  ( $dados -> result_array ()  as  $row ) {}

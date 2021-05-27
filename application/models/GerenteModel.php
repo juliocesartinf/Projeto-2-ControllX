@@ -34,14 +34,14 @@ class GerenteModel extends CI_Model {
 	}
 
 
-	public function alterar_senha($senha, $id)
+	public function alterar_senha($senha, $email)
 	{
 		
 
 
 		$this->db->query("UPDATE Gerentes
 			SET senha = '$senha'
-			WHERE id = '$id'");
+			WHERE email = '$email'");
 
 		
 

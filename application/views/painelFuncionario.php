@@ -27,7 +27,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 
 				<nav class="navbar navbar-light barra fixed-top ">
-					<a id="titulo" class="navbar-brand" href="">ControllX- Painel Gerente</a>
+					<a id="titulo" class="navbar-brand" href="">ControllX- Painel Funcionario</a>
 
 
 <!--
@@ -62,12 +62,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 
 <ul class="nav justify-content-end fixed-top" id="btn_acoes">
-  <li class="nav-item">
-   <button type="button" class="btn btn-light bmenu" data-toggle= 'modal' data-target='#modal_Funcionario' data-whatever="@mdo">Cadastrar Funcionario</button>
-  </li>
-    &nbsp;  &nbsp;
-  <li class="nav-item">
-  <button type="button" class="btn btn-light bmenu" data-toggle= 'modal' data-target='#modal_Produto' data-whatever="@mdo">Cadastrar Produto</button>
+ 
   </li>
    &nbsp;  &nbsp;
   <li class="nav-item">
@@ -88,15 +83,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
   &nbsp;  &nbsp;
 </ul>
 
-
-
-
-
-
-
-
-
-
 			</div>
 		</div>
 
@@ -104,77 +90,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 		<div class="row">
 			<div class="col-md-12 check_bt fixed-top">
-
-				<form name="form">
-
-					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="radio" name="tab" id="inlineRadio2" value="Funcionarios" onclick="window.location=' <?php echo site_url('PainelAdministrador')?>/checado/funcionarios '" <?php if ($this->session->userdata("tab_escolhida")=='funcionarios'){
-							echo "checked";
-						} ?>><label class="form-check-label" for="inlineRadio2"><b>Funcionários</b></label>
-					</div>
-
-
-
-					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="radio" name="tab" id="inlineRadio2" value="Produtos" onclick="window.location=' <?php echo site_url('PainelAdministrador')?>/checado/produtos'"  <?php if ($this->session->userdata("tab_escolhida")=='produtos'){
-							echo "checked";
-						} ?>>
-						<label class="form-check-label" for="inlineRadio2"><b>Produtos</b></label>
-					</div>
-
-
-
-				</form>
 			</div>
 		</div>
 		
 		<div class="row tabelas">
 
 			<div class="col-md-12 col-sm-12">
-
-<?php if ($this->session->userdata("tab_escolhida")=="funcionarios"):?>
-	
-
-				<div id="tabela_funcionarios"> 
-					<table class="table">
-						<thead>
-							<tr>
-								<th scope="col">Funcionário</th>
-								<th scope="col">E-mail</th>
-								<th scope="col">Telefone</th>
-								<th scope="col">Data de Nascimento</th>
-								<th scope="col">Data de Admissão</th>
-								<th scope="col">Situação</th>
-								<th scope="col">Opções</th>
-							</tr>
-						</thead>
-						<tbody>
-
-							<?php foreach  ( $this->session->userdata("tabela_funcionarios") -> result_array ()  as  $row ) { ?>
-
-								<tr>
-									<td><?php echo $row['nome']; ?></td>
-									<td><?php echo $row['email']; ?></td>
-									<td><?php echo $row['telefone']; ?></td>
-									<td><?php echo $row['dataDeNascimento']; ?></td>
-									<td><?php echo $row['dataDeAdmissao']; ?></td>
-									<td><?php echo $row['situacao']; ?></td>
-									<td><a href="<?php echo site_url('Funcionario/carregarFuncionario/'.$row['id']);?>">Editar Funcionário</a>
-										<br>
-										<a href="<?php echo site_url('Funcionario/desativar_Funcionario/'.$row['id']);?>" onclick="return confirma();">Desativar Login</a> 
-
-										<br>
-										<a href="<?php echo site_url('Funcionario/ativar_Funcionario/'.$row['id']);?>">Ativar Login</a>
-
-
-									</td>
-								<?php }; ?>
-							</tbody>
-						</table>
-					</div>
-
-<?php endif ?>
-
 
 <?php if ($this->session->userdata("tab_escolhida")=="produtos"):?>
 	
@@ -250,7 +171,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						</button>
 						</div>';
 					} ?>
-					<form action="<?php echo site_url('Gerente/atualizarSenha')?>" method="post">
+					<form action="<?php echo site_url('Funcionario/atualizarSenha')?>" method="post">
 						<div class="form-group">
 
 
@@ -285,212 +206,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	</div>
 
 	<!-- fim modal-->
-
-
-
-	<!--modal cadastrar funcionario-->
-	
-	<div class="modal fade" id="modal_Funcionario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header modalTituloFuncionario">
-					<h5 class="modal-title modalf_txt" id="exampleModalLabel"><img src="<?php echo base_url('public/imagens/funcionario.png');?>">       Cadastrar Funcionário</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-
-				
-				
-				<div class="modal-body">
-					<?php if ($this->session->userdata("erroCadastro")!='') {
-						echo '<div class="alert alert-danger alert-dismissible fade show" role="alert" style="position:absolute;z-index:2;width:94%;">		
-						</style>>
-						<strong></strong>"'.$this->session->userdata("erroCadastro").'"
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-						</button>
-						</div>';
-					} ?>
-					<form action="<?php echo site_url('Funcionario/cadastro')?>" method="post">
-						
-
-						<div class="form-group">
-							<label for="inputAddress">Nome Completo:</label>
-							<input type="name" maxlength="55" class="form-control" id="inputAddress" placeholder='ex: "Breno Felipe Vinicius Moura"' name="nome">
-						</div>
-						<div class="form-row">
-							<div class="form-group col-md-6">
-								<input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="" style="display:none">
-								<label for="inputEmail4">Email:</label>
-                                 <input type="password" style="display:none">
-								<input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="email">
-							</div>
-							<div class="form-group col-md-6">
-								<label for="inputPassword4">Senha:</label>
-								<input type="password" maxlength="35" class="form-control" id="inputPassword4" placeholder="Senha" name="senha">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="inputAddress2">Telefone:</label>
-							<input type="text" class="form-control" id="tel" placeholder="Telefone, Celular" name="telefone">
-						</div>
-						<div class="form-row">
-							<div class="form-group col-md-6">
-								<label for="inputAddress2">Data de nascimento:</label>
-								<input type="text" class="form-control" id="dt" placeholder="00/00/0000" name="dtn">
-							</div>
-							<div class="form-group col-md-6">
-								<label for="inputAddress2">Data de Admissão:</label>
-								<input type="text" class="form-control" id="dt2" placeholder="00/00/0000" name="dta">
-							</div>
-						</div>
-						<button type="submit" id="bt_funcionario" class="btn btn-primary">SALVAR</button>
-
-
-
-
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- fim modal-->
-
-
-
-	<!--modal editar funcionario-->
-	
-	<div class="modal fade" id="modal_EditarFuncionario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header modalTituloEditarFuncionario">
-					<h5 class="modal-title modalf_txt" id="exampleModalLabel"><img src="<?php echo base_url('public/imagens/editarFuncionario.png');?>">       Editar o Funcionário</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-
-				
-				
-				<div class="modal-body">
-					<?php if ($this->session->userdata("erroEditar_funcionario")!='') {
-						echo '<div class="alert alert-danger alert-dismissible fade show" role="alert" style="position:absolute;z-index:2;width:94%;">		
-						</style>>
-						<strong></strong>"'.$this->session->userdata("erroEditar_funcionario").'"
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-						</button>
-						</div>';
-					} ?>
-					<form action="<?php echo site_url('Funcionario/editarFuncionario')?>" method="post">
-						
-
-						<div class="form-group">
-							<label for="inputAddress">Nome Completo:</label>
-							<input type="name" maxlength="55" class="form-control" id="nomeED" placeholder='ex: "Breno Felipe Vinicius Moura"' name="nome">
-						</div>
-						<div class="form-row">
-							<div class="form-group col-md-6">
-								<label for="inputEmail4">Email:</label>
-								<input type="email" class="form-control" id="emailED" placeholder="Email" name="" style="display:none">
-                                <input type="password" style="display:none">
-								<input type="email" class="form-control" id="emailED" placeholder="Email" name="email">
-							</div>
-							<div class="form-group col-md-6">
-								<label for="inputPassword4">Nova Senha:</label>
-								<input type="password" maxlength="35" class="form-control" id="inputPassword4" placeholder="Nova Senha" name="senha">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="inputAddress2">Telefone:</label>
-							<input type="text" class="form-control" id="telED" placeholder="Telefone, Celular" name="telefone">
-						</div>
-						<div class="form-row">
-							<div class="form-group col-md-6">
-								<label for="inputAddress2">Data de nascimento:</label>
-								<input type="text" class="form-control" id="dtED" placeholder="00/00/0000" name="dtn">
-							</div>
-							<div class="form-group col-md-6">
-								<label for="inputAddress2">Data de Admissão:</label>
-								<input type="text" class="form-control" id="dt2ED" placeholder="00/00/0000" name="dta">
-							</div>
-						</div>
-						<button type="submit" id="bt_funcionario" class="btn btn-primary">SALVAR</button>
-
-
-
-
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- fim modal-->
-
-
-<!--modal cadastrar Produto-->
-	
-	<div class="modal fade" id="modal_Produto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header modalTituloProduto">
-					<h5 class="modal-title modalp_txt" id="exampleModalLabel"><img src="<?php echo base_url('public/imagens/produto.png');?>">       Cadastrar Produto</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-
-				
-				
-				<div class="modal-body">
-					<?php if ($this->session->userdata("erroCadastro_Produto")!='') {
-						echo '<div class="alert alert-danger alert-dismissible fade show" role="alert" style="position:absolute;z-index:2;width:94%;">		
-						</style>>
-						<strong></strong>"'.$this->session->userdata("erroCadastro_Produto").'"
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-						</button>
-						</div>';
-					} ?>
-					<form action="<?php echo site_url('Produto/cadastrar_produto')?>" method="post">
-						<br>
-						<div class="form-row">
-							<div class="form-group col-md-4">
-								<label for="inputAddress">Tipo:</label>
-							<input type="text" maxlength="55" class="form-control" id="tipo" placeholder='"Tenis"' name="tipo">
-							</div>
-							<div class="form-group col-md-8">
-								<label for="inputAddress">Produto:</label>
-							<input type="text" maxlength="55" class="form-control" id="descricao" placeholder='"Nike Hyper Adapt 1.0 BRZ – Casual"' name="descricao">
-							</div>
-							<div class="form-group col-md-4">
-								<label for="inputEmail4">Quantidade:</label>
-								<input type="text" style="display:none">
-								<input type="password" style="display:none">
-								<input type="text" class="form-control" id="quantidade" placeholder='"0000"' name="quantidade">
-							</div>
-						</div>
-
-                        <div class="form-row">
-						<div class="form-group col-md-12">
-								<label for="inputAddress">Fornecedor:</label>
-							<input type="text" maxlength="55" class="form-control" id="fornecedor" placeholder=' "Fornecedor do produto"' name="fornecedor">
-							</div>
-						</div>
-						<br>
-						<button type="submit" id="bt_funcionario" class="btn btn-primary">SALVAR</button>
-						</form>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- fim modal-->
-
-
 
 
 <!--modal editar Produto-->

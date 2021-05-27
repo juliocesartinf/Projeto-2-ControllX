@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class PainelGerente extends CI_Controller {
+class PainelFuncionario extends CI_Controller {
 
 
 
@@ -12,7 +12,7 @@ class PainelGerente extends CI_Controller {
 		$user=$this->session->userdata("User_logado");
 		$tipo=$this->session->userdata("tipo_User_logado");
 
-		if ($user!=''& $tipo == 'gerente' ) {
+		if ($user!=''& $tipo == 'funcionario' ) {
 			
 			$this->carregar_tabelaGerentes();
 			$this->session->set_userdata("erroSenha","");
@@ -80,7 +80,7 @@ class PainelGerente extends CI_Controller {
 		$this->load->Model('ProdutoModel');
 		$dados = $this->ProdutoModel->carregar_dados();
 		$this->session->set_userdata("tabela_produtos",$dados);
-		$this->load->view('painelGerente');
+		$this->load->view('painelFuncionario');
 
 
 		//foreach  ( $dados -> result_array ()  as  $row ) {}
@@ -92,7 +92,7 @@ class PainelGerente extends CI_Controller {
 public function checado($tabela=''){
 	
 	$this->session->set_userdata("tab_escolhida",$tabela);
-	redirect("PainelGerente/dados");
+	redirect("PainelFuncionario/dados");
 	exit();
 
 }

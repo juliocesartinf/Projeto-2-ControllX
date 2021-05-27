@@ -262,7 +262,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 										<a href="<?php echo site_url('Produto/deletar_Produto/'.$row['codigo']);?>" onclick="return confirmaProduto();">Deletar Produto</a> 
 
 										<br>
-										<a href="<?php echo site_url('Produto/ativar_Funcionario/'.$row['codigo']);?>">retirar Produto</a>
+										<a href="<?php echo site_url('Produto/retirar_produto/'.$row['codigo']);?>">retirar Produto</a>
 
 
 									</td>
@@ -375,8 +375,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-6">
+								<input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="" style="display:none">
 								<label for="inputEmail4">Email:</label>
-								 <input type="text" style="display:none">
                                  <input type="password" style="display:none">
 								<input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="email">
 							</div>
@@ -448,8 +448,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						<div class="form-row">
 							<div class="form-group col-md-6">
 								<label for="inputEmail4">Email:</label>
-								 <input type="text" style="display:none">
-                                 <input type="password" style="display:none">
+								<input type="email" class="form-control" id="emailED" placeholder="Email" name="" style="display:none">
+                                <input type="password" style="display:none">
 								<input type="email" class="form-control" id="emailED" placeholder="Email" name="email">
 							</div>
 							<div class="form-group col-md-6">
@@ -518,7 +518,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						<div class="form-row">
 							<div class="form-group col-md-12">
 								<label for="inputEmail4">Email:</label>
-								<input type="text" style="display:none">
+								<input type="email" class="form-control" id="email_gerente" placeholder="Email" name="" style="display: none;">
 								<input type="password" style="display:none">
 								<input type="email" class="form-control" id="email_gerente" placeholder="Email" name="email">
 							</div>
@@ -603,7 +603,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						<div class="form-row">
 							<div class="form-group col-md-12">
 								<label for="inputEmail4">Email:</label>
-								<input type="text" style="display:none">
+								<input type="email" class="form-control" id="email_gerente_ed" placeholder="Email" name="" style="display: none">
 								<input type="password" style="display:none">
 								<input type="email" class="form-control" id="email_gerente_ed" placeholder="Email" name="email">
 							</div>
@@ -776,6 +776,63 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<!-- fim modal-->
 
 
+
+
+
+
+<!--modal retirar Produto-->
+	
+	<div class="modal fade" id="modal_RetirarProduto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header modalTituloProdutoRetirar">
+					<h5 class="modal-title modalp_txt_retirar" id="exampleModalLabel"><img src="<?php echo base_url('public/imagens/produto.png');?>">       Retirar Produto</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				
+				
+				<div class="modal-body">
+					<?php if ($this->session->userdata("erroRetirar_Produto")!='') {
+						echo '<div class="alert alert-danger alert-dismissible fade show" role="alert" style="position:absolute;z-index:2;width:94%;">		
+						</style>>
+						<strong></strong>"'.$this->session->userdata("erroRetirar_Produto").'"
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+						</div>';
+					} ?>
+					<form action="<?php echo site_url('Produto/BaixaProduto')?>" method="post">
+						<br>
+						<div class="form-row">
+							<div class="form-group col-md-5">
+								<label for="inputEmail4">Quantidade:</label>
+								<input type="text" style="display:none">
+								<input type="password" style="display:none">
+								<input type="text" class="form-control" id="qt" placeholder='"0000"' name="quantidade">
+							</div>
+							<div class="form-group col-md-5">
+								<label for="inputEmail4"><br></label>
+								<br>
+								<button type="submit" id="bt_funcionario" class="btn btn-primary">OK</button>
+							</div>
+						</div>
+						<br>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- fim modal-->
+
+
+
+
+
+
 	<script src="<?php echo base_url();?>public/js/painelGerente.js" type="text/javascript"></script>
 
 
@@ -935,7 +992,17 @@ document.getElementById('fornecedor_ed').value='".$dados['fornecedor']."';
 
 }
 
+if ($this->session->userdata("retirar_produto")) {
+	
+echo " <script type='text/javascript'>
+		
 
+
+		$('#modal_RetirarProduto').modal('show');
+
+		</script>     ";
+
+}
 
 ?>
 

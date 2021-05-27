@@ -266,5 +266,72 @@ public function deletar_Produto($codigo=''){
 }
 
 
+public function retirar_produto($codigo=''){
+
+    $this->load->model('ProdutoModel');
+	$dados = $this->ProdutoModel->carregar_dados();
+	$this->session->set_userdata("codigo_produto",$codigo);
+
+	$this->session->set_userdata("retirar_produto",true);
+	if ($this->session->userdata("tipo_User_logado")=='administrador') {
+					redirect('PainelAdministrador/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='gerente') {
+					redirect('PainelGerente/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='funcionario') {
+					redirect('PainelFuncionario/dados');
+					exit();
+				}
+	
+}
+
+
+public function BaixaProduto(){
+	
+	$qt = $this->input->post("quantidade");
+	$codigo = $this->session->userdata("codigo_produto");
+
+	$this->load->model('ProdutoModel');
+	$dados = $this->ProdutoModel->carregar_dados();
+
+foreach  ( $dados -> result_array ()  as  $row ) {
+
+if ($row['codigo'] == $codigo) {
+ 	
+$resultado = $row['quantidade'] - $qt;
+$this->ProdutoModel->atualizar_dados($row['tipo'], $row['produto'], $resultado, $row['fornecedor'],$codigo);
+
+//salvar o quem vendeu o valor
+$this->salvarBaixaDeProdutos($qt);
+
+    } 
+
+  }
+
+}
+
+
+public function salvarBaixaDeProdutos($qt){
+	
+$user = $this->session->userdata("User_logado");
+
+
+
+
+
+if ($this->session->userdata("tipo_User_logado")=='administrador') {
+					redirect('PainelAdministrador/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='gerente') {
+					redirect('PainelGerente/dados');
+					exit();
+				}elseif ($this->session->userdata("tipo_User_logado")=='funcionario') {
+					redirect('PainelFuncionario/dados');
+					exit();
+				}
+
+}
+
 
 }?>

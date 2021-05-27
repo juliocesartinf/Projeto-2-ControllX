@@ -15,7 +15,7 @@ background-color: #669FE7;
 
 body{
 
-background-color:#EBEFF4; 
+
    margin-top: 80px;
 
 }
@@ -103,6 +103,22 @@ color:white;
 
 
 background-color: #4A46FF;
+
+
+}
+
+.modalTituloProdutoRetirar{
+
+background-color: #EEEEEE;
+
+}
+
+.modalp_txt_retirar{
+
+font-size: 20px;
+margin-left:1%;
+margin-top: 4%;
+font-family: Helvetica;
 
 
 }

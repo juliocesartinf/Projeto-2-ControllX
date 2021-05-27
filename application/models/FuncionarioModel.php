@@ -68,7 +68,19 @@ $this->db->query("UPDATE Funcionarios SET situacao = 'Login Ativado' WHERE id = 
 
 }
 
+public function alterar_senha($senha, $email)
+	{
+		
 
+
+		$this->db->query("UPDATE Funcionarios
+			SET senha = '$senha'
+			WHERE email = '$email'");
+
+		
+
+
+	}
 
 
 //$this->db->query('INSERT INTO Funcionarios(nome,email,senha,telefone,dataDeNascimento,dataDeAdmissao) VALUES (?,?,?,?,?,?)',$dados);
