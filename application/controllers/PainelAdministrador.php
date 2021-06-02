@@ -14,6 +14,7 @@ class PainelAdministrador extends CI_Controller {
 
 		if ($user!=''& $tipo == 'administrador' ) {
 			
+			$this->verificar_estoque();
 			$this->carregar_tabelaGerentes();
 			$this->session->set_userdata("erroSenha","");
 			$this->session->set_userdata("erroCadastro_funcionario","");
@@ -29,6 +30,8 @@ class PainelAdministrador extends CI_Controller {
 			$this->session->set_userdata("Modal_gerente_carregado",false);
 			$this->session->set_userdata("Modal_produto_carregado",false);
 			$this->session->set_userdata("retirar_produto",false);
+			$this->session->set_userdata("estoque_baixo",false);
+			$this->session->set_userdata("produto_buscado","");
 			
 
 			
@@ -80,7 +83,24 @@ class PainelAdministrador extends CI_Controller {
 		$this->load->Model('ProdutoModel');
 		$dados = $this->ProdutoModel->carregar_dados();
 		$this->session->set_userdata("tabela_produtos",$dados);
+		$this->carregar_tabelaProdutos_retirados();
+
+
+		//foreach  ( $dados -> result_array ()  as  $row ) {}
+
+
+
+	}
+
+	private function carregar_tabelaProdutos_retirados(){
+
+		$this->load->Model('ProdutoModel');
+		$dados = $this->ProdutoModel->carregar_dados_retirados();
+		$this->session->set_userdata("tabela_produtos_retirados",$dados);
 		$this->load->view('painelAdministrador');
+
+		
+		
 
 
 		//foreach  ( $dados -> result_array ()  as  $row ) {}
@@ -97,7 +117,34 @@ public function checado($tabela=''){
 
 }
 
+public function verificar_estoque(){
 
+ $this->load->model('ProdutoModel');
+ $dados = $this->ProdutoModel->carregar_dados();
+
+ if ($dados->num_rows()>0) {
+ 	
+
+
+foreach  ( $dados -> result_array ()  as  $row ) {
+
+if ($row['quantidade'] < 5) {
+	
+
+$this->session->set_userdata("estoque_baixo",true);
+
+
+}
+  }
+
+
+
+
+
+
+ }
+
+     }
 
 
 

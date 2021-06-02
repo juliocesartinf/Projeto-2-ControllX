@@ -298,12 +298,21 @@ public function BaixaProduto(){
 foreach  ( $dados -> result_array ()  as  $row ) {
 
 if ($row['codigo'] == $codigo) {
- 	
+
+if ( $row['quantidade']<$qt) {
+	
+	$this->redirecionar();
+
+}
+	
 $resultado = $row['quantidade'] - $qt;
+
 $this->ProdutoModel->atualizar_dados($row['tipo'], $row['produto'], $resultado, $row['fornecedor'],$codigo);
 
-//salvar o quem vendeu o valor
-$this->salvarBaixaDeProdutos($qt);
+
+$user=$this->session->userdata("User_logado");
+$this->ProdutoModel->cadastrar_retirada($row['tipo'],$row['produto'],$user,$qt,date('d/m/Y'));
+$this->redirecionar();
 
     } 
 
@@ -312,14 +321,8 @@ $this->salvarBaixaDeProdutos($qt);
 }
 
 
-public function salvarBaixaDeProdutos($qt){
+public function redirecionar(){
 	
-$user = $this->session->userdata("User_logado");
-
-
-
-
-
 if ($this->session->userdata("tipo_User_logado")=='administrador') {
 					redirect('PainelAdministrador/dados');
 					exit();
@@ -334,4 +337,32 @@ if ($this->session->userdata("tipo_User_logado")=='administrador') {
 }
 
 
-}?>
+ public function buscarProduto() {
+     	
+ $prd=$this->input->post('produto');
+
+ $this->load->model('ProdutoModel');
+ $dados = $this->ProdutoModel->carregar_dados();
+
+
+foreach  ( $dados -> result_array ()  as  $row ) {
+
+if ($row['codigo'] == $prd) {
+	
+
+$this->session->set_userdata("produto_buscado","PRODUTO: "."(".$row['tipo']." ".$row['produto'].")"." QUANTIDADE: "."(".$row['quantidade'].")"." FORNECEDOR: "."(".$row['fornecedor'].")"." CADASTRADO NO DIA: "."(".$row['data'].")");
+$this->redirecionar();
+
+}else{
+
+$this->session->set_userdata("produto_buscado","ERRO produto não localizado !");
+$this->redirecionar();
+}
+  }
+
+$this->redirecionar();	
+
+     }
+
+
+ }?>

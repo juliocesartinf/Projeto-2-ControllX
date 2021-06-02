@@ -56,17 +56,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 		<div class="row">
 			<div class="col-md-12">
-				
-
-
-
 
 <ul class="nav justify-content-end fixed-top" id="btn_acoes">
- 
-  </li>
-   &nbsp;  &nbsp;
-  <li class="nav-item">
-   
+  <li class="nav-item"> 
 <div class="dropdown">
 						<button class="btn btn-light bmenu dropdown-toggle bmenu" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							Configurações
@@ -80,13 +72,24 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					</div>
 
   </li>
-  &nbsp;  &nbsp;
+
+   &nbsp;  &nbsp;
+
+<div style="width: 35%;">
+					
+					<form id="Pesquisar" class="form-inline my-2 my-lg-0" action="<?php echo site_url('Produto/buscarProduto')?>" method="post">
+      <input class="form-control mr-sm-2" type="search" placeholder="Cod. Produto" aria-label="Search" name="produto">
+      <button class="btn btn-success my-2 my-sm-0" type="submit">Pesquisar</button>
+    </form>
+
+				</div>
+
+
+   &nbsp;  &nbsp;
 </ul>
 
 			</div>
 		</div>
-
-
 
 		<div class="row">
 			<div class="col-md-12 check_bt fixed-top">
@@ -124,11 +127,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 									<td><?php echo $row['quantidade']; ?></td>
 									<td><?php echo $row['fornecedor']; ?></td>
 									<td><?php echo $row['data']; ?></td>
-									<td><a href="<?php echo site_url('Produto/carregarProduto/'.$row['codigo']);?>">Editar Produto</a>
-										<br>
-										<a href="<?php echo site_url('Produto/deletar_Produto/'.$row['codigo']);?>" onclick="return confirmaProduto();">Deletar Produto</a> 
-
-										<br>
+									<td>
 										<a href="<?php echo site_url('Produto/retirar_produto/'.$row['codigo']);?>">retirar Produto</a>
 
 
@@ -138,7 +137,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						</table>
 					</div>
 
-<?php endif ?>
+				<?php endif ?>
 
 
 
@@ -491,6 +490,32 @@ echo " <script type='text/javascript'>
 
 
 		$('#modal_RetirarProduto').modal('show');
+
+		</script>     ";
+
+}
+
+if ($this->session->userdata("estoque_baixo")) {
+	
+echo " <script type='text/javascript'>
+		
+
+alert('produtos estão em baixa no estoque !');
+		
+
+		</script>     ";
+
+}
+
+if ($this->session->userdata("produto_buscado")!="") {
+	
+$mensagem = $this->session->userdata("produto_buscado");
+
+echo " <script type='text/javascript'>
+		
+
+alert('".$mensagem."');
+		
 
 		</script>     ";
 

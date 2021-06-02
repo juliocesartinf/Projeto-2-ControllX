@@ -122,9 +122,22 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						<label class="form-check-label" for="inlineRadio2"><b>Produtos</b></label>
 					</div>
 
-
-
+					<!--produtos retirados -->
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="tab" id="inlineRadio2" value="Retirados" onclick="window.location=' <?php echo site_url('PainelAdministrador')?>/checado/retirados'"  <?php if ($this->session->userdata("tab_escolhida")=='retirados'){
+							echo "checked";
+						} ?>>
+						<label class="form-check-label" for="inlineRadio2"><b>Prod. Retirados</b></label>
+					</div>
 				</form>
+				<div style="width: 30%">
+					
+					<form id="Pesquisar" class="form-inline my-2 my-lg-0" action="<?php echo site_url('Produto/buscarProduto')?>" method="post">
+      <input class="form-control mr-sm-2" type="search" placeholder="Cod. Produto" aria-label="Search" name="produto">
+      <button class="btn btn-success my-2 my-sm-0" type="submit">Pesquisar</button>
+    </form>
+
+				</div>
 			</div>
 		</div>
 		
@@ -217,6 +230,37 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						</table>
 					</div>
 
+<?php endif ?>
+
+<?php if ($this->session->userdata("tab_escolhida")=="retirados"): ?>
+	
+
+				<div id="tabela_gerentes"> 
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">Tipo</th>
+								<th scope="col">Produto</th>
+								<th scope="col">vendedor</th>
+								<th scope="col">Quantidade de saida</th>
+								<th scope="col">Data de saida</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<?php foreach  ( $this->session->userdata("tabela_produtos_retirados") -> result_array ()  as  $row ) { ?>
+
+								<tr>
+									<td><?php echo $row['tipo']; ?></td>
+									<td><?php echo $row['produto']; ?></td>
+									<td><?php echo $row['vendedor']; ?></td>
+									<td><?php echo $row['quantidade_saida']; ?></td>
+									<td><?php echo $row['data_saida']; ?></td>
+								</tr>
+							<?php }; ?>
+						</tbody>
+					</table>
+				</div>
 <?php endif ?>
 
 
@@ -776,6 +820,32 @@ echo " <script type='text/javascript'>
 
 
 		$('#modal_RetirarProduto').modal('show');
+
+		</script>     ";
+
+}
+
+if ($this->session->userdata("estoque_baixo")) {
+	
+echo " <script type='text/javascript'>
+		
+
+alert('produtos estão em baixa no estoque !');
+		
+
+		</script>     ";
+
+}
+
+if ($this->session->userdata("produto_buscado")!="") {
+	
+$mensagem = $this->session->userdata("produto_buscado");
+
+echo " <script type='text/javascript'>
+		
+
+alert('".$mensagem."');
+		
 
 		</script>     ";
 

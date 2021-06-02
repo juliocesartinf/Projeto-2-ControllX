@@ -50,11 +50,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
               <img id="logo" src="<?php echo base_url();?>public/imagens/logo.png" alt="logo">
             </div>
             <div class="col-md-10 col-sm-12">
-              <h1>Gerente Administrador</h1>
+              <h1>Administrador- ControllX</h1>
             </div>
 
           </div>
-
           <form  id="cadastro" action="<?php echo site_url('Administrador/realizar_cadastro'); ?>  " method="post">
             <div class="form-group"> 
               <div class="row">
@@ -74,9 +73,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 </div>
               </div>   
               <div class="form-group">
-                <input type="text" style="display:none">
-                <input type="password" style="display:none">
-                <input type="email" class="form-control" placeholder="E-mail" name="email">
+                <input type="text" class="form-control" placeholder="E-mail" name="email">
                 <input type="password" class="form-control" placeholder="Senha" id="senha" name="senha">
                 <input type="password" class="form-control" placeholder="Confirmar Senha"  name="senhaC">
               </div>

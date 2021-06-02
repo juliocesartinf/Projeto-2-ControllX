@@ -32,6 +32,11 @@ class ProdutoModel extends CI_Model {
 
 	}
 
+	public function carregar_dados_retirados()
+	{
+		return $query = $this->db->query('SELECT * FROM Produtos_retirados');
+	}
+
 
 	public function atualizar_dados($tipo, $produto, $qtd, $fornecedor,$codigo){
 
@@ -53,6 +58,23 @@ class ProdutoModel extends CI_Model {
 		$this->db->query("DELETE FROM Produtos WHERE codigo ='$codigo'");
 
 	}
+
+
+
+    public function cadastrar_retirada($tipo,$produto,$usuario,$qt,$data){
+ 	
+
+         $dados = [$tipo,$produto,$usuario,$qt,$data];
+
+	
+
+		$this->db->query('INSERT INTO Produtos_retirados(tipo, produto, vendedor, quantidade_saida, data_saida) VALUES (?,?,?,?,?)',$dados);
+
+
+
+ }
+
+
 
 		//$this->db->query("UPDATE Gerentes
 		//	SET situacao = 'Gerentes_desativado'

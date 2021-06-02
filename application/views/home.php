@@ -43,7 +43,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
       <div class="mb-3">
         <input type="password" name="senha" placeholder="senha" maxlength="30" class="form-control" id="InputPassword1">
       </div>
-      <a href="#">Esqueceu senha ?</a>
+     <!-- <a href="#">Esqueceu senha ?</a>-->
       <br>
       <button id="entrar" type="submit" class="btn btn-primary ">Entrar</button>
     </form>
